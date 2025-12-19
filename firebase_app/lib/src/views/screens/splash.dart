@@ -1,46 +1,10 @@
-import 'package:firebase_app/src/views/screens/home_screen.dart';
-import 'package:firebase_app/src/views/screens/login_screen.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_app/services/firebase/firebase_auth_services.dart';
+
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class Splash extends StatefulWidget {
+class Splash extends StatelessWidget {
   const Splash({super.key});
-
-  @override
-  State<Splash> createState() => _SplashState();
-}
-
-class _SplashState extends State<Splash> {
-  @override
-  void initState() {
-    super.initState();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      authCheck();
-    });
-  }
-
-  Future<void> authCheck() async {
-    await Future.delayed(const Duration(seconds: 2));
-
-    final user = FirebaseAuth.instance.currentUser;
-    print(user.toString());
-
-    // if (!mounted) return;
-    //
-    if (user == null) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (_) => const LoginScreen()),
-      );
-    }
-    else {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (_) => const HomeScreen()),
-      );
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
