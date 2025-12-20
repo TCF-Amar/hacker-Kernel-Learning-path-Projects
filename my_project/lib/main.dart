@@ -5,12 +5,16 @@ import 'package:get/get.dart';
 import 'package:my_project/middleware/auth_middleware.dart';
 import 'package:my_project/routes/app_routes.dart';
 import 'package:my_project/services/bindings/auth_binding.dart';
+import 'package:my_project/services/bindings/blog_binding.dart';
+import 'package:my_project/services/bindings/firebase_message_binding.dart';
 import 'package:my_project/services/bindings/profile_binding.dart';
 import 'package:my_project/src/views/screens/authscreens/sign_in_screen.dart';
 import 'package:my_project/src/views/screens/authscreens/sign_up_screen.dart';
 import 'package:my_project/src/views/screens/authscreens/verify_otp_screen.dart';
-import 'package:my_project/src/views/screens/home_screen.dart';
-import 'package:my_project/src/views/screens/profile_screen.dart';
+import 'package:my_project/src/views/screens/create_blog_screen.dart';
+import 'package:my_project/src/views/screens/splash_screen.dart';
+import 'package:my_project/src/views/widgets/layout/tab_layout.dart';
+
 import 'firebase_options.dart';
 
 Future<void> main() async {
@@ -28,9 +32,9 @@ class MainApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       initialBinding: AuthBinding(),
-      initialRoute: AppRoutes.home,
+      initialRoute: AppRoutes.splash,
       getPages: [
-        // GetPage(name: AppRoutes.splash, page: () => const SplashScreen()),
+        GetPage(name: AppRoutes.splash, page: () => const SplashScreen()),
         GetPage(
           name: AppRoutes.signIn,
           page: () => const SignInScreen(),
@@ -41,14 +45,19 @@ class MainApp extends StatelessWidget {
           page: () => const SignUpScreen(),
           middlewares: [AuthMiddleware()],
         ),
-        GetPage(name: AppRoutes.otp, page: () => const VerifyOtpScreen()),
-        GetPage(name: AppRoutes.home, page: () => const HomeScreen()),
-        GetPage(
-          name: AppRoutes.profile,
-          page: () => const ProfileScreen(),
-          binding: ProfileBinding(),
-          // middlewares: [AuthGuardMiddleware()],
+
+        GetPage(name: AppRoutes.home,
+            page: () => const TabLayout()
+            ,
+            bindings: [
+              BlogBinding(),
+              ProfileBinding(),
+              FirebaseMessageBinding()
+            ]
         ),
+        GetPage(name: AppRoutes.otp, page: () => const VerifyOtpScreen()),
+        GetPage(
+            name: AppRoutes.createBlog, page: () => const CreateBlogScreen())
       ],
     );
   }

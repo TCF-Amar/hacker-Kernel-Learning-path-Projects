@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:my_project/routes/app_routes.dart';
 import 'package:my_project/src/controllers/firebase_auth_controller.dart';
 import 'package:my_project/src/views/screens/authscreens/sign_up_screen.dart';
 import 'package:my_project/src/views/widgets/app_text_field.dart';
@@ -69,7 +70,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   const Text("Don't have an account?"),
                   TextButton(
                     onPressed: () {
-                      Get.to(() => const SignUpScreen());
+                      Get.toNamed(AppRoutes.signUp);
                     },
                     child: const Text("Sign Up"),
                   ),

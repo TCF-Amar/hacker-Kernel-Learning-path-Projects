@@ -7,7 +7,7 @@ class AuthGuardMiddleware extends GetMiddleware {
   @override
   RouteSettings? redirect(String? route) {
     final auth = Get.find<FirebaseAuthController>();
-    if (auth.user.value == null) {
+    if (auth.firebaseUser.value == null) {
       return const RouteSettings(name: AppRoutes.signIn);
     }
     return null;

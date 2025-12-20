@@ -38,9 +38,10 @@ class _AppTextFieldState extends State<AppTextField> {
         controller: widget.controller,
         obscureText: showPass ? widget.obscureText : false,
         keyboardType: widget.keyboardType,
-
+// maxLines: 2,
 
         decoration: InputDecoration(
+
           labelText: widget.label,
           hintText: widget.hint,
           prefixText: widget.prefixText,
